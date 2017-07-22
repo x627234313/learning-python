@@ -222,4 +222,12 @@ class Name:
 class Name():
     pass
 
+class Name(Student):
+    pass
+
+class Name(Student,):
+    pass
+
+class Name(Student,Teacher,):
+    pass
 
