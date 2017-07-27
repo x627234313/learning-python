@@ -56,7 +56,7 @@ as_integer_ratio()    # Return a pair of integers, whose ratio is exactly equal 
 conjugate()           # Return self, the complex conjugate of any float.
 fromhex()             # Create a floating-point number from a hexadecimal string. 16进制字符串转换为浮点数。
                       # float.fromhex(string) -> float 
-hex()                 # Return a hexadecimal representation of a floating-point number.
+hex()                 # Return a hexadecimal representation of a floating-point number. 以十六进制表示浮点数。
                       # float.hex() -> string
 is_integer()          # Return True if the float is an integer.
 imag                  # 
@@ -83,7 +83,7 @@ capitalize()    # Return a capitalized version of S, i.e. make the first charact
                 # 返回首字母大写，其他小写
 casefold()      # Return a version of S suitable for caseless comparisons.
                 # S.casefold() -> str
-center()        # Return S centered in a string of length width.
+center()        # Return S centered in a string of length width. 字符居中，指定宽度和填充字符（默认为空格。
                 # S.center(width[, fillchar]) -> str
 count()         # Return the number of non-overlapping occurrences of substring sub in string S[start:end].
                 # S.count(sub[, start[, end]]) -> int
@@ -91,20 +91,55 @@ encode()        # Encode S using the codec registered for encoding.
                 # S.encode(encoding='utf-8', errors='strict') -> bytes
 endswith()      # Return True if S ends with the specified suffix, False otherwise.
                 # S.endswith(suffix[, start[, end]]) -> bool
-expandtabs()    # Return a copy of S where all tab characters are expanded using spaces.
+startswith()    #
+expandtabs()    # Return a copy of S where all tab characters are expanded using spaces. 把制表符tab("\t")转换为空格。
                 # S.expandtabs(tabsize=8) -> str
 find()          # Return the lowest index in S where substring sub is found,
                 # S.find(sub[, start[, end]]) -> int
+rfind()         #
 format()        # Return a formatted version of S, using substitutions from args and kwargs.
                 # S.format(*args, **kwargs) -> str
 format_map()    # Return a formatted version of S, using substitutions from mapping.
                 # S.format_map(mapping) -> str
 index()         # Return the lowest index in S where substring sub is found,such that sub is contained within S[start:end].
                 # S.index(sub[, start[, end]]) -> int
+rindex()        # 
 isalnum()       # Return True if all characters in S are alphanumeric and there is at least one character in S, False otherwise.
                 # S.isalnum() -> bool
-isalpha()       # 
+isalpha()       # 如果字符串至少有一个字符并且所有字符都是字母则返回 True,否则返回 False
+                # S.isalpha() -> bool
+isdecimal()     # 如果字符串是一个十进制正整数返回True，否则返回False。
+isdigit()       # 如果字符串是一个正整数返回True，否则返回 False。
+isidentifier()  # 判断是否为python中的标识符
+isnumeric()     # 
+isprintable()   # 判断引号里面的是否都是可打印的
+isspace()       # 判断字符串里面都是空白位，空格或者tab
+istitle()       # 判断字符串里面的字符是否都是大写开头
+isupper()       #
+islower()       #
+join()          # 将字符串以指定的字符连接生成一个新的字符串
+partition()     # 以指定字符分割，返回一个元组
+rpartition()    # 以指定字符从右向左分割，只分割一次，返回元组，若没有指定的字符，则在返回的元组前面加两个空字符串
+replace()       # 将指定的字符替换为新的字符，可指定替换的个数
+ljust()         # 左对齐，可指定字符宽度和填充字符
+rjust()         #  
+split()         # 分割，可以以指定的字符分割，可指定分割的次数，默认从左向右分割，与partition不同的是，split分割后会删除指定的字符，
+                # 默认以空格为分割符
+rsplit()        #
+splitlines()    # 字符串转换为列表
+strip()         # 默认去除两边空白字符，可指定去除的字符，去除指定的字符后，会被空白占位。
+lstrip()        #
+rstrip()        # 
+swapcase()      # 将字符串中的大小写互换
+title()         # 
+translate()     # 
+upper()         #
+lower()         #
+zfill()         # 指定字符串宽度，不足的右边填“0”
+maketrans       # Return a translation table usable for str.translate().
 """
+
+
 #列表
 l = [1,2,3], l = list(123)
 """
