@@ -59,9 +59,54 @@ fromhex()             # Create a floating-point number from a hexadecimal string
 hex()                 # Return a hexadecimal representation of a floating-point number.
                       # float.hex() -> string
 is_integer()          # Return True if the float is an integer.
-imag                  #
-real                  #
+imag                  # 
+real                  # 
 """
 
 
 #复数
+c = 1+2j, c = complex(2,3)
+"""
+conjugate()    # Return the complex conjugate of its argument. (3-4j).conjugate() == 3+4j. 返回该复数的共轭复数对象。
+imag           # the imaginary part of a complex number
+real           # the real part of a complex number
+"""
+
+
+#分数
+
+#字符串
+s = '123', s = str(123)
+"""
+capitalize()    # Return a capitalized version of S, i.e. make the first character have upper case and the rest lower case.
+                # S.capitalize() -> str
+                # 返回首字母大写，其他小写
+casefold()      # Return a version of S suitable for caseless comparisons.
+                # S.casefold() -> str
+center()        # Return S centered in a string of length width.
+                # S.center(width[, fillchar]) -> str
+count()         # Return the number of non-overlapping occurrences of substring sub in string S[start:end].
+                # S.count(sub[, start[, end]]) -> int
+encode()        # Encode S using the codec registered for encoding.
+                # S.encode(encoding='utf-8', errors='strict') -> bytes
+endswith()      # Return True if S ends with the specified suffix, False otherwise.
+                # S.endswith(suffix[, start[, end]]) -> bool
+expandtabs()    # Return a copy of S where all tab characters are expanded using spaces.
+                # S.expandtabs(tabsize=8) -> str
+find()          # Return the lowest index in S where substring sub is found,
+                # S.find(sub[, start[, end]]) -> int
+format()        # Return a formatted version of S, using substitutions from args and kwargs.
+                # S.format(*args, **kwargs) -> str
+format_map()    # Return a formatted version of S, using substitutions from mapping.
+                # S.format_map(mapping) -> str
+index()         # Return the lowest index in S where substring sub is found,such that sub is contained within S[start:end].
+                # S.index(sub[, start[, end]]) -> int
+isalnum()       # Return True if all characters in S are alphanumeric and there is at least one character in S, False otherwise.
+                # S.isalnum() -> bool
+isalpha()       # 
+"""
+#列表
+l = [1,2,3], l = list(123)
+"""
+
+"""
