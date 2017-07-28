@@ -141,7 +141,52 @@ maketrans       # Return a translation table usable for str.translate().
 
 
 #列表
-l = [1,2,3], l = list(123)
+l = [1,2,3], l = list('123abc')
 """
+append()    # L.append(object) -> None -- append object to end
+clear()     # L.clear() -> None -- remove all items from L
+copy()      # L.copy() -> list -- a shallow copy of L
+count()     # L.count(value) -> integer -- return number of occurrences of value
+extend()    # L.extend(iterable) -> None -- extend list by appending elements from the iterable
+index()     # L.index(value, [start, [stop]]) -> integer -- return first index of value.
+insert()    # L.insert(index, object) -- insert object before index
+pop()       # L.pop([index]) -> item -- remove and return item at index (default last).
+remove()    # L.remove(value) -> None -- remove first occurrence of value.
+reverse()   # L.reverse() -- reverse *IN PLACE*
+sort()      # L.sort(key=None, reverse=False) -> None -- stable sort *IN PLACE*
+"""
+
+
+#元组
+t = (1,), t = tuple('123a')
+"""
+count()    # T.count(value) -> integer -- return number of occurrences of value.
+index()    # T.index(value, [start, [stop]]) -> integer -- return first index of value.
+"""
+
+
+#字典
+d = {'name':'chai','age':23}, d = dict(), d = dict(name='chai',age=23), d = dict.fromkeys('123','python')
+"""
+clear()         # D.clear() -> None.  Remove all items from D.
+copy()          # D.copy() -> a shallow copy of D.
+fromkeys()      # fromkeys(iterable, value=None, /) from builtins.type. 创建新字典。
+get()           # D.get(k[,d]) -> D[k] if k in D, else d.  d defaults to None.
+items()         # D.items() -> a set-like object providing a view on D's items.
+keys()          # D.keys() -> a set-like object providing a view on D's keys.
+pop()           # D.pop(k[,d]) -> v, remove specified key and return the corresponding value.
+popitem()       # D.popitem() -> (k, v), remove and return some (key, value) pair as a 2-tuple; but raise KeyError if D is empty.
+setdefault()    # D.setdefault(k[,d]) -> D.get(k,d), also set D[k]=d if k not in D.
+update()        # D.update([E, ]**F) -> None.  Update D from dict/iterable E and F.
+values()        # D.values() -> an object providing a view on D's values.
+"""
+
+
+#集合
+s = 
+"""
+add()        # Add an element to a set.
+clear()      # Remove all elements from this set.
+copy()       # Return a shallow copy of a set.
 
 """
