@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+from fractions import Fraction    #分数
+from collections import namedtuple, deque, OrderedDict, defaultdict
+
 list = []
 
 for i in range(ord('A'),ord('z')+1):
@@ -74,6 +77,19 @@ real           # the real part of a complex number
 
 
 #分数
+f = Fraction(1,2), f = Fraction(2.5)
+"""
+limit_denominator()    # limit_denominator(self, max_denominator=1000000)
+                       # >>> Fraction('3.141592653589793').limit_denominator(10)
+                       # Fraction(22, 7)
+                       # >>> Fraction('3.141592653589793').limit_denominator(100)
+                       # Fraction(311, 99)
+from_decimal(dec)      # Converts a finite Decimal instance to a rational number, exactly.
+from_float(f)          # Converts a finite float to a rational number, exactly.
+conjugate(self)        #
+denominator            # 分母
+numerator              # 分子
+"""
 
 #字符串
 s = '123', s = str(123)
@@ -83,7 +99,7 @@ capitalize()    # Return a capitalized version of S, i.e. make the first charact
                 # 返回首字母大写，其他小写
 casefold()      # Return a version of S suitable for caseless comparisons.
                 # S.casefold() -> str
-center()        # Return S centered in a string of length width. 字符居中，指定宽度和填充字符（默认为空格。
+center()        # Return S centered in a string of length width. 字符居中，指定宽度和填充字符（默认为空格）。
                 # S.center(width[, fillchar]) -> str
 count()         # Return the number of non-overlapping occurrences of substring sub in string S[start:end].
                 # S.count(sub[, start[, end]]) -> int
@@ -183,10 +199,89 @@ values()        # D.values() -> an object providing a view on D's values.
 
 
 #集合
-s = 
+s = {1,2,3,4,5}, s = set()
 """
 add()        # Add an element to a set.
 clear()      # Remove all elements from this set.
 copy()       # Return a shallow copy of a set.
+difference() # Return the difference of two or more sets as a new set. 差集,“-”
+difference_update()    # Remove all elements of another set from this set.
+discard()              # 移除指定元素，如果集合内没有指定的元素，就什么都不做。
+intersection()         # 交集,"&"
+intersection_update()  # 交集更新，没有返回值，直接修改集合。
+isdisjoint()           # 当两个集合没有交集的时候，返回True，否则返回False。
+issubset()             # A.issubset(B)，A是否被B包含，如果是则返回True，否则返回False
+issuperset()           # A.issuperset(B)，A是否包含B，如果包含则返回True，否则返回False
+pop()                  # 弹出排序过后的第一个元素
+remove()               # 移除指定的元素
+symmetric_difference() # 将两个集合的对称差作为一个新集合返回。
+symmetric_difference_update()    #
+union()                          # 返回一个新的并集，“|”
+update()                         # 更新为并集
+"""
+
+
+#deque
+d = deque('abc')
+"""
+append()        #
+appendleft()    #
+clear()         #
+copy()          #
+count()         # D.count(value) -> integer -- return number of occurrences of value
+extend()        #
+extendleft()    #
+index()         # D.index(value, [start, [stop]]) -> integer -- return first index of value.
+insert()        # D.insert(index, object) -- insert object before index
+pop()           #
+popleft()       #
+remove()        # D.remove(value) -- remove first occurrence of value.
+reverse()       # D.reverse() -- reverse *IN PLACE*
+rotate()        # rotate(n),default n=1,向右移，n为负数向左移
+maxlen          # maximum size of a deque or None if unbounded
+"""
+
+
+#OrderedDict
+od = OrderedDict(), od = OrderedDict(name='CC',age=12), od = OrderedDict.fromkeys('abc')
+"""
+clear()    # od.clear() -> None.  Remove all items from od.
+copy()     # od.copy() -> a shallow copy of od
+fromkeys() #
+items()    # D.items() -> a set-like object providing a view on D's items
+keys()     # D.keys() -> a set-like object providing a view on D's keys.
+values()   # D.values() -> an object providing a view on D's values
+get()      # D.get(k[,d]) -> D[k] if k in D, else d.  d defaults to None.
+move_to_end()    # Move an existing element to the end (or beginning if last==False).
+pop()            # od.pop(k[,d]) -> v, remove specified key and return the corresponding value.
+popitem()        # od.popitem() -> (k, v), return and remove a (key, value) pair.
+setdefault()     # od.setdefault(k[,d]) -> od.get(k,d), also set od[k]=d if k not in od
+update()         # D.update([E, ]**F) -> None.  Update D from dict/iterable E and F.
+"""
+
+
+#defaultdict defaultdict(default_factory[, ...]) --> dict with default factory
+dd = defaultdict(int), 
+"""
+default_factory    # Factory for default value called by __missing__().
+copy()             #
+clear()            #
+fromkeys()         #
+get()              #
+items()            #
+keys()             #
+values()           #
+pop()              #
+popitem()          #
+setdefault()       #
+update()           #
+"""
+
+
+#namedtuple() 
+Student = namedtuple('Student', 'id, name, score'), s = Student(2, 'chai', 28)
+"""
 
 """
+
+
