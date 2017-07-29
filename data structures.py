@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-from fractions import Fraction    #分数
+from fractions import Fraction    # 分数
+from decimal import Decimal       # 小数
 from collections import namedtuple, deque, OrderedDict, defaultdict
 
 l = []
@@ -77,6 +78,45 @@ c = 1+2j, c = complex(2,3)
 conjugate()    # Return the complex conjugate of its argument. (3-4j).conjugate() == 3+4j. 返回该复数的共轭复数对象。
 imag           # the imaginary part of a complex number
 real           # the real part of a complex number
+"""
+
+
+#小数
+d = Decimal(), d = Decimal('3.14'), d = Decimal(3.14)
+"""
+adjusted()            # Return the adjusted exponent of the number.  Defined as exp + digits - 1.
+as_integer_ratio()    # Decimal.as_integer_ratio() -> (int, int) 返回分数形式。
+as_tuple()            # 返回一个DecimalTuple：DecimalTuple(sign, digits, exponent)
+canonical()           # 返回参数的规范编码。目前，一个Decimal实例的编码总是规范的，所以这个操作返回其参数不变。
+compare()             # a or b is a NaN ==> Decimal('NaN')
+                      # a < b           ==> Decimal('-1')
+                      # a == b          ==> Decimal('0')
+                      # a > b           ==> Decimal('1')
+compare_signal()      # 该操作与该compare()方法相同，除了所有NaN信号。
+compare_total()       # 使用他们的抽象表示比较两个操作数，而不是它们的数值。
+                      # Decimal('12.0').compare_total(Decimal('12'))  ==> Decimal('-1')
+compare_total_mag()   # 类似compare_total(), 但是忽略每个操作数的符号。
+conjugate()           # Return self.
+copy_abs()            # 返回参数的绝对值
+copy_negate()         # Return the negation of the argument. 返回参数的否定
+copy_sign()           # 返回第一个操作数的副本，其符号设置为与第二个操作数的符号相同。
+exp()                 # 返回e**x给定数字的（自然）指数函数的值。
+fma()                 # Fused multiply-add. Return self*other+third with no rounding of the intermediate product self*other.
+                      # Decimal(2).fma(3, 5)  ==> Decimal('11')
+from_float()          # 精确地将float转换为十进制数的Classmethod。
+is_canonical()        # 目前，一个Decimal实例总是规范的，所以这个操作总是返回True。
+is_finite()           # 如果参数是有限数，返回True；如果参数是无穷大或NaN，返回False
+is_infinite()         # 如果参数为正或负无穷大，True，否则False。
+is_nan()              # Return True if the argument is a (quiet or signaling) NaN and False otherwise.
+is_normal()           # 正有限数返回True，0, 不正常, 无穷大 或 NaN，返回False
+is_qnan()             # Return True if the argument is a quiet NaN, and False otherwise.
+is_signed()           # 参数有负号返回True，否则False
+is_snan()             # Return True if the argument is a signaling NaN and False otherwise.
+is_subnormal()        # Return True if the argument is subnormal, and False otherwise.
+is_zero()             # Return True if the argument is a (positive or negative) zero and False otherwise.
+ln()                  # 返回操作数的自然（e）对数。
+log10()               #
+logb()                #
 """
 
 
