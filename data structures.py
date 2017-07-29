@@ -9,7 +9,7 @@ l = []
 for i in range(ord('A'),ord('z')+1):
     l.append(chr(i))
 
-print(list)    # ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 
+print(l)    # ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 
                   'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 
                   'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 
                   'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 
