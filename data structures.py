@@ -289,3 +289,62 @@ Student = namedtuple('Student', 'id, name, score'), s = Student(2, 'chai', 28)
 """
 
 
+# 调用函数报错 NameError: name 'calendar' is not defined
+def cal():
+    print(calendar.month(2017, 11))
+    
+cal()
+
+import calendar
+
+# 正常执行
+import calendar
+
+def cal():
+    print(calendar.month(2017, 12))
+    
+cal()
+
+# 调用类中方法报错 NameError: name 'calendar' is not defined
+class Cal:
+    def func(self):
+        print(calendar.month(2017, 10))
+        
+cal = Cal()
+cal.func()
+
+import calendar
+
+# 
+import calendar
+
+class Cal():
+    def func(self):
+        print(calendar.month(2017, 1))
+        
+cal = Cal()
+cal.func()
+
+
+# 命名空间/作用域
+在函数内部访问全局变量，而且只想读取变量的值，一般来说是没有问题的：
+def combine(parameter):
+    print(parameter + external)
+    
+external = 'berry'
+
+combine('Shrub')    # 像这样引用全局变量是很多错误的引发原因。慎重使用全局变量。
+
+如果局部变量或者参数的名字和想要访问的全局变量名相同的话，就不能直接访问了，全局变量会被局部变量屏蔽。
+如果的确需要，可以使用globals函数获取全局变量的值。
+
+在函数内部声明全局变量使用global关键字。
+
+嵌套作用域
+Python的函数是可以嵌套的，一个函数位于另外一个里面，外层函数返回里层函数。也就是说函数本身被返回了，但并没有被调用。
+重要的是返回的函数还可以访问它的定义所在的作用域。
+def multiplier(factor):
+    def multiplyByFactor(number):
+        return number*factor
+    return multiplyByFactor
+类似multiplyByFactor函数存储子封闭作用域的行为叫做闭包（closure）。
