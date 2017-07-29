@@ -4,12 +4,16 @@
 from fractions import Fraction    #分数
 from collections import namedtuple, deque, OrderedDict, defaultdict
 
-list = []
+l = []
 
 for i in range(ord('A'),ord('z')+1):
-    list.append(chr(i))
+    l.append(chr(i))
 
-print(list)
+print(list)    # ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 
+                  'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 
+                  'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 
+                  'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 
+                  'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
 list1 = [(x,y) for x in [1,2,3] if x > 2 for y in [3,1,4]]
 list2 = [(x,y) if x >= 2 else x+5 for x in [1,2,3] for y in [3,4,5]]
@@ -23,15 +27,15 @@ list2 = [(x,y) if x >= 2 else x+5 for x in [1,2,3] for y in [3,4,5]]
 '''
 list3 = [(x,y) for x in range(10) if x % 2 if x > 3 for y in range(10) if y > 7 if y != 8]
 
-print(list1)  #[(3, 3), (3, 1), (3, 4)]
-print(list2)  #[6, 6, 6, (2, 3), (2, 4), (2, 5), (3, 3), (3, 4), (3, 5)]
-print(list3)  #[(5, 9), (7, 9), (9, 9)]
+print(list1)    # [(3, 3), (3, 1), (3, 4)]
+print(list2)    # [6, 6, 6, (2, 3), (2, 4), (2, 5), (3, 3), (3, 4), (3, 5)]
+print(list3)    # [(5, 9), (7, 9), (9, 9)]
 
 del list1[:]
 del list2
 
-print(list1)
-print(list2)
+print(list1)    # []
+print(list2)    # NameError: name 'list2' is not defined
 
 #整数
 i = 12, i = int(3.14), i = int('0b100', base=0)    # 4
