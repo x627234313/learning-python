@@ -128,9 +128,36 @@ min_mag()             #
 next_minux()          # 在给定的上下文中(如果没有给定，则在当前线程的上下文中)，返回比给定操作数小的最大数字。
 next_plus()           # 返回比给定操作数大的最小数字。
 next_toward()         #
-normalize()           #
-number_class()        #
-
+normalize()           # For example, Decimal('32.100') and Decimal('0.321000e+2') both normalize to the equivalent value Decimal('32.1').
+number_class()        # Return a string describing the class of the operand. The returned value is one of the following ten strings.
+                      # "-Infinity" "-Normal" "-Subnormal" "-Zero" "+Zero" "+Subnormal" "+Normal" "+Infinity" "NaN" "sNaN"
+quantize()            # 小数位数。 quantize(self, /, exp, rounding=None, context=None)
+radix()               # Return Decimal(10), the radix (base) in which the Decimal class does all its arithmetic.
+                      # Included for compatibility with the specification.
+remainder_near()      # remainder_near(other, context=None)
+                      # self - n * other, n = self / other  (n四舍五入后取偶数！！)
+                      # Decimal(18).remainder_near(Decimal(10))  ==>  Decimal('-2')
+                      # Decimal(25).remainder_near(Decimal(10))  ==>  Decimal('5')
+                      # Decimal(35).remainder_near(Decimal(10))  ==>  Decimal('-5')
+rotate()              # 移动第二个操作数指定的位数。
+                      # Decimal(x).rotate(y, context=None) 
+                      # x=Decimal
+                      # y=Integer
+same_quantum()        # Test whether self and other have the same exponent or whether both are NaN.
+                      # Decimal(x).same_quantum(y, context=None) 
+scaleb()              # 
+shift()               # Return the result of shifting the digits of the first operand by an amount specified by the second operand.
+                      # Decimal(x).shift(other, context=None) 
+sqrt()                # 返回参数完全精度的平方根。
+                      # Decimal(x).sqrt(context=None) 
+to_eng_string()       # 转换为字符串，如果需要一个指数，使用工程表示法。
+                      # Decimal(x).to_eng_string()
+to_integral()         # Identical to the to_integral_value() method. 
+                      # Decimal(x).to_integral()
+to_integral_exact()   # Round to the nearest integer, signaling Inexact or Rounded as appropriate if rounding occurs.
+                      # Decimal(x).to_integral_exact()
+to_integral_value()   # Round to the nearest integer without signaling Inexact or Rounded. 
+                      # Decimal(x).to_integral_value(rounding=None, context=None) 
 """
 
 
