@@ -115,8 +115,22 @@ is_snan()             # Return True if the argument is a signaling NaN and False
 is_subnormal()        # Return True if the argument is subnormal, and False otherwise.
 is_zero()             # Return True if the argument is a (positive or negative) zero and False otherwise.
 ln()                  # 返回操作数的自然（e）对数。
-log10()               #
-logb()                #
+log10()               # 返回操作数以10为底对数。
+logb()                # 非零数，返回调整指数；如果是0，返回Decimal('-Infinity')，DivisionByZero异常；如果是无穷大，返回Decimal('Infinity')
+logical_and()         # 逻辑操作需要两个逻辑操作数，Return the digit-wise 'and' of the two (logical) operands.
+logical_invert()      # 逻辑操作，Return the digit-wise inversion of the (logical) operand.
+logical_or()          # 逻辑操作需要两个逻辑操作数，Return the digit-wise 'or' of the two (logical) operands.
+logical_xor()         # 逻辑操作需要两个逻辑操作数，Return the digit-wise 'exclusive or' of the two (logical) operands.
+max()                 # Like max(self, other)
+max_mag()             # 类似max(),但是使用的是绝对值。
+min()                 # Like min(self, other)
+min_mag()             #
+next_minux()          # 在给定的上下文中(如果没有给定，则在当前线程的上下文中)，返回比给定操作数小的最大数字。
+next_plus()           # 返回比给定操作数大的最小数字。
+next_toward()         #
+normalize()           #
+number_class()        #
+
 """
 
 
