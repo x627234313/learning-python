@@ -65,3 +65,20 @@ print('outer address:', id(y))
 bar(y)
 print('outer value:', y)
 
+
+# 参数传递
+def hello(name, greeting='Hello', punctuation='!'):
+    print('%s, %s%s' % (greeting, name, punctuation))
+
+hello('Mars')
+hello('Mars', 'Howdy', '...')
+hello('Mars', greeting='Top of the morning to ya')
+
+
+def print_params(x, y, z=3, *args, **kw):
+    print(x, y, z)
+    print(args)
+    print(kw)
+
+print_params(1, 2, 5, 6, 7, foo=1, bar=2)
+
