@@ -122,6 +122,7 @@ def func4():
         a = 3
     print(a)
 
+# nonlocal
 def outside():
     msg = 'Outside!'
     def inside():
@@ -149,6 +150,11 @@ outside()
 class A:
     pass
 
+
+class B:
+    pass
+
+
 a = A()
 sys.getrefcount(a)    # 2
 
@@ -158,6 +164,13 @@ sys.getrefcount(A())    # 1
 
 li = [a, a, a]
 sys.getrefcount(a)    # 7
+
+del li[0]
+sys.getrefcount(a)    # 6
+
+b = B()
+sys.getrefcount(a)    # 5
+sys.getrefcount(A())    # 1
 
 gc.get_count()    # 当前回收计数,默认阈值是(700,10,10)
 
@@ -185,6 +198,6 @@ def calc_bmi(weight:float=60, height:'float>0'=1.75) -> str:
 
     return 'Your BMI is:{}'.format(weight/height)
 
-print(calc_bmi())
+print(calc_bmi())    # You BMI is:34.285714285714285
 print(calc_bmi(65, 1.72))
 
