@@ -82,7 +82,9 @@ def print_params(x, y, z=3, *args, **kw):
     print(args)
     print(kw)
 
-print_params(1, 2, 5, 6, 7, foo=1, bar=2)
+print_params(1, 2, 5, 6, 7, foo=1, bar=2)    # 1 2 5 
+                                             # (6, 7)
+                                             # {'foo': 1, 'bar': 2}
 
 
 # 匿名函数
