@@ -97,6 +97,19 @@ print(f(-1, 2)(3, 4))
 f = lambda : 'Hello World'
 print(f())
 
+f = lambda x, y, z: x + y - z
+print(f(3, 4, 5))
+
+# lambda表达式  闭包
+def closure(x):
+    return lambda y: x + y
+
+f = closure(10)
+print(f(1))    # 11
+print(f(10))    # 20
+print(f.__closure__)    # (<cell at 0x7f2084935ac8: int object at 0x8e43a0>,)
+
+# 函数调用时，内部语句执行
 li = [lambda : x for x in range(10)]
 print(type(li))    # <class 'list'>
 print(type(li[0]))    # <class 'function'>
