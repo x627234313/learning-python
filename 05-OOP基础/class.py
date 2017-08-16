@@ -45,3 +45,44 @@ print(getattr(s, 'score'))    # 99
 delattr(s, 'score')
 print(getattr(s, 'score', 100))    # 100
 print(s.name, s.age)
+
+print(s.__dict__)
+print(Student.__dict__)
+print(Student.__name__)    # Student
+print(Student.__doc__)
+print(Student.__module__)    # __main__
+print(Student.__bases__)
+
+
+class Test(object):
+	def __new__(self):
+		print('__new__被执行')
+
+	def __init__(self):
+		print('__init__被执行')
+
+
+t = Test()    # __new__是真正的构造方法，__init__是初始化方法
+
+
+class MyClass(object):
+	'''A simple example class
+	'''
+
+	def __init__(self, num):
+		self.num = num
+
+	def __repr__(self):
+		return '__repr__执行'
+
+	def __str__(self):
+		return '__str__执行'
+
+	i = 123
+	def func(self):
+		return 'Hello World!'
+
+
+x = MyClass(999)
+print(str(x))
+print(repr(x))
