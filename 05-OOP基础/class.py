@@ -46,11 +46,10 @@ delattr(s, 'score')
 print(getattr(s, 'score', 100))    # 100
 print(s.name, s.age)
 
-print(s.__dict__)
 print(Student.__dict__)
 print(Student.__name__)    # Student
 print(Student.__doc__)
-print(Student.__module__)    # __main__
+print(Student.__module__)    # 直接在Python解释器中执行都是__main__
 print(Student.__bases__)
 
 
@@ -64,6 +63,38 @@ class Test(object):
 
 t = Test()    # __new__是真正的构造方法，__init__是初始化方法
 
+
+class A:
+	x = 'x in A'
+	y = 'y in A'
+
+class B:
+	x = 'x in B'
+	y = 'y in B'
+
+class C(A, B):
+	pass
+
+class D(B, A):
+	pass
+
+print(C.y)    # y in A
+print(D.y)    # y in B
+print(C.__bases__)    # (<class '__main__.A'>, <class '__main__.B'>)
+print(D.__bases__)    # (<class '__main__.B'>, <class '__main__.A'>)
+                      # 多继承时的解析顺序是按照__base__中基类元组的顺序
+issubclass(C, A)
+issubclass(D, B)
+issubclass(C, (A, B))
+
+d = D()
+print(isinstance(d, D))    # True
+print(isinstance(d, A))    # True
+print(isinstance(d, (D, B, A)))    # True
+
+print(type(d) == D)    # True
+print(type(d) == A)    # False
+                       # 多继承判断类型时，不要使用type.
 
 class MyClass(object):
 	'''A simple example class
