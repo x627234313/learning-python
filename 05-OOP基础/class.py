@@ -100,20 +100,49 @@ class MyClass(object):
 	'''A simple example class
 	'''
 
-	def __init__(self, num):
-		self.num = num
-
-	def __repr__(self):
-		return '__repr__执行'
-
 	def __str__(self):
-		return '__str__执行'
+		return '__str__'
 
-	i = 123
-	def func(self):
-		return 'Hello World!'
+x = MyClass()
+print(str(x))    # __str__
+print(repr(x))    # <__main__.MyClass object at 0x000001C743397F60>
+
+class MyClass_1:
+	'''compare __str__  __repr__
+	'''
+	def __repr__(self):
+		# 只能使用return返回字符串，数值会报错
+		return '__repr__'
+
+x = MyClass_1()
+print(str(x))    # __repr__  str()先找__str__,没有再找__repr__
+print(repr(x))    # __repr__  repr()找__repr__,没有返回默认。
 
 
-x = MyClass(999)
-print(str(x))
-print(repr(x))
+class MyClass_2(object):
+	@classmethod
+	def func(cls):
+		name = 'zs'
+		age = 22
+		cls(name, age)
+
+	def func_1(self):
+		self.name = 'lisi'
+		self.age = 33
+
+x = MyClass_2()
+x.func_1()
+print(x.name)
+print(x.age)
+
+
+
+class Student(object):
+
+    @classmethod
+    def from_string(cls, name_str):
+        first_name, last_name = map(str, name_str.split(' '))
+        student = cls(first_name, last_name)
+        return student
+
+scott = Student.from_string('Scott Robinson') 
