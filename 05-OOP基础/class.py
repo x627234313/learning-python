@@ -17,6 +17,7 @@ c.func()    # Hello  继承父类的方法
 c.func1('World')    # Hello World
 
 
+# 属性访问和内置属性
 class Person(object):
 	def __init__(self, name, age):
 		self.name = name
@@ -26,7 +27,6 @@ class Person(object):
 		print(self.name, 'is a Person.')
 
 
-# 属性访问和内置属性
 class Student(Person):
 	def __init__(self, name, age, score):
 		super(Student, self).__init__(name, age)
