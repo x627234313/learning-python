@@ -120,29 +120,126 @@ print(repr(x))    # __repr__  repr()找__repr__,没有返回默认。
 
 
 class MyClass_2(object):
+	def __init__(self, name, age):
+		self.name = name
+		self.age = age
+
 	@classmethod
 	def func(cls):
-		name = 'zs'
+		name = 'zhangsan'
 		age = 22
-		cls(name, age)
+		return cls(name, age)    # cls代表的就是类自己，return cls() 等价于 return MyClass_2()
 
-	def func_1(self):
-		self.name = 'lisi'
-		self.age = 33
-
-x = MyClass_2()
-x.func_1()
-print(x.name)
-print(x.age)
+	@staticmethod
+	def func1(x, y):
+		return x + y
 
 
+ls = MyClass_2('lisi', 33)
+print(ls.name)    # lisi
+print(ls.age)    # 33
 
-class Student(object):
+zs = MyClass_2.func()
+print(zs.name)    # zhangsan
 
-    @classmethod
-    def from_string(cls, name_str):
-        first_name, last_name = map(str, name_str.split(' '))
-        student = cls(first_name, last_name)
-        return student
+n = MyClass_2.func1(2, 3)
+m = ls.func1(8, 9)
+print(n)
+print(m)
 
-scott = Student.from_string('Scott Robinson') 
+
+class Test(object):
+	def __init__(self, num):
+		self.num = num
+
+	def __add__(self, other):
+		return Test(self.num + other.num)
+
+x = Test(3)
+y = Test(5)
+z = x + y
+print(z.num)    # 8
+x = Test('a')
+y = Test('b')
+z = x + y
+print(z.num)    # ab
+
+
+class Test1(object):
+	def __init__(self, num):
+		self.num = num
+
+	def __radd__(self, other):
+		return Test1(self.num + other.num)
+
+class Test2(object):
+	def __init__(self, num):
+		self.num = num
+
+x = Test1(8)
+y = Test2(9)
+#z1 = x + y    # TypeError: unsupported operand type(s) for +: 'Test1' and 'Test2'
+z2 = y + x
+print(z2.num)    # 17
+
+
+class Test3(object):
+	def __init__(self, num):
+		self.num = num
+
+	def __iadd__(self, other):
+		return Test3(self.num + other.num)
+
+x = Test3(5)
+y = Test3(6)
+x += y
+y += x
+print(x.num)    # 11
+print(y.num)    # 17
+
+x = Test3(5)
+y = Test2(6)
+x += y
+#y += x    # TypeError: unsupported operand type(s) for +=: 'Test2' and 'Test3'
+print(x.num)    # 11
+
+
+class Test4(object):
+	def __init__(self, num):
+		self.num = num
+
+	def __add__(self, other):
+		return Test4(self.num + other.num)
+
+	def __radd__(self, other):
+		return Test4(self.num + other.num)
+
+	def __iadd__(self, other):
+		return Test4(self.num + other.num)
+
+x = Test4(11)
+y = Test4(22)
+z1 = x + y
+z2 = y + x
+print(z1.num)    # 33
+print(z2.num)    # 33
+x += y
+y += x
+print(x.num)    # 33
+print(y.num)    # 55
+
+
+class Test5(object):
+	def __init__(self, a, b, c):
+		self.a = a
+		self._b = b
+		self.__c = c
+
+t = Test5('chai', 'li', 'shuai')
+print(dir(t))    # ['_Test5__c', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', 
+                 #  '__getattribute__', '__gt__', '__hash__', '__init__', '__le__', '__lt__', '__module__', '__ne__', '__new__', 
+	         #  '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', 
+		 #  '__weakref__', '_b', 'a']
+print(t.a)
+print(t._b)    # 单下划线的属性，是实验、保护性质的，不要随便访问
+print(t._Test5__c)    # 双下划线的属性，是私有性质的，不能‘直接’访问
