@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+# 类的继承
 class Base:
 	def func(self):
 		print('Hello')
@@ -25,6 +26,7 @@ class Person(object):
 		print(self.name, 'is a Person.')
 
 
+# 属性访问和内置属性
 class Student(Person):
 	def __init__(self, name, age, score):
 		super(Student, self).__init__(name, age)
@@ -53,6 +55,7 @@ print(Student.__module__)    # 直接在Python解释器中执行都是__main__
 print(Student.__bases__)
 
 
+# 构造方法和初始化方法
 class Test(object):
 	def __new__(self):
 		print('__new__被执行')
@@ -64,6 +67,7 @@ class Test(object):
 t = Test()    # __new__是真正的构造方法，__init__是初始化方法
 
 
+# 多继承顺序和类型判断
 class A:
 	x = 'x in A'
 	y = 'y in A'
@@ -96,6 +100,8 @@ print(type(d) == D)    # True
 print(type(d) == A)    # False
                        # 多继承判断类型时，不要使用type.
 
+
+# 内置方法 __init__  __del__  __len__  __str__
 class MyClass(object):
 	'''A simple example class
 	'''
@@ -119,6 +125,7 @@ print(str(x))    # __repr__  str()先找__str__,没有再找__repr__
 print(repr(x))    # __repr__  repr()找__repr__,没有返回默认。
 
 
+# 类方法@classmethod 和静态方法@staticmethod
 class MyClass_2(object):
 	def __init__(self, name, age):
 		self.name = name
@@ -148,6 +155,7 @@ print(n)
 print(m)
 
 
+# 运算符重载 __add__  __radd__  __iadd__
 class Test(object):
 	def __init__(self, num):
 		self.num = num
@@ -179,6 +187,8 @@ class Test2(object):
 x = Test1(8)
 y = Test2(9)
 #z1 = x + y    # TypeError: unsupported operand type(s) for +: 'Test1' and 'Test2'
+               # 只有当左操作数不支持相应的操作时，才调用__radd__这种类型的方法；
+	       # 并且操作数是不同的类型
 z2 = y + x
 print(z2.num)    # 17
 
@@ -192,43 +202,44 @@ class Test3(object):
 
 x = Test3(5)
 y = Test3(6)
-x += y
+x += y    # 增量赋值
 y += x
 print(x.num)    # 11
 print(y.num)    # 17
 
-x = Test3(5)
-y = Test2(6)
-x += y
-#y += x    # TypeError: unsupported operand type(s) for +=: 'Test2' and 'Test3'
-print(x.num)    # 11
 
-
-class Test4(object):
+class Test(object):
 	def __init__(self, num):
 		self.num = num
 
+class Test1(object):
+	def __init__(self, num):
+		self.num = num
+	
 	def __add__(self, other):
-		return Test4(self.num + other.num)
+		return Test1(self.num + other.num)
 
+class Test2(object):
+	def __init__(self, num):
+		self.num = num
+	
 	def __radd__(self, other):
-		return Test4(self.num + other.num)
+		return Test2(self.num + other.num)
 
-	def __iadd__(self, other):
-		return Test4(self.num + other.num)
-
-x = Test4(11)
-y = Test4(22)
-z1 = x + y
-z2 = y + x
-print(z1.num)    # 33
-print(z2.num)    # 33
-x += y
-y += x
-print(x.num)    # 33
-print(y.num)    # 55
+t = Test(1)
+t1 = Test1(2)
+t2 = Test2(4)
+z = t + t1    # 左操作数没有add，右操作数没有radd
+z = t + t2
+z = t1 + t
+z = t1 + t2
+z = t2 + t    # TypeError: unsupported operand type(s) for +: 'Test2' and 'Test'
+z = t2 + t1    # TypeError: unsupported operand type(s) for +: 'Test2' and 'Test1'
 
 
+
+
+# 属性隐藏
 class Test5(object):
 	def __init__(self, a, b, c):
 		self.a = a
