@@ -1,4 +1,3 @@
-
 #!/usr/bin/evn python
 # encoding: utf-8
 
@@ -56,13 +55,44 @@ print(decorated()) # 12
 
 
 # 使用类作装饰器，带参数
+from functools import wraps
 class Decorator(object):
-	def __init__(self,func):
-		self.func = func
+	def __init__(self, name):
+		self.name = name
+		print('Inside __init__()')
 
-	def __call__(self, x, y):
+	def __call__(self, func):
+		print('Inside __call__()')
+		def wrapper():
+			print('Inside wrapper()')
+			print('Decorator arguments:', self.name)
+			print(func.__name__)
+		return wrapper
+
+@Decorator('chai')
+def test():
+	print('Inside test()')
+
+test()
+
+
+# 使用类方法作装饰器
+class Decorator(object):
+	def __init__(self):
 		pass
 
-@Decorator
-def decorated():
-	pass
+	@classmethod
+	def operator(cls, func):
+		def wrapper():
+			print('Inside wrapper()')
+			func()
+		return wrapper
+
+@Decorator.operator
+def test():
+	print('Inside test()')
+
+test()
+
+
+# 使用带参数的类方法作为装饰器
