@@ -96,3 +96,41 @@ test()
 
 
 # 使用带参数的类方法作为装饰器
+class Decorator(object):
+	def __init__(self):
+		pass
+
+	@classmethod
+	def operator(cls, *args, **kwargs):
+		print('Inside operator()')
+		def wrapper(func):
+			print('Inside wrapper()')
+			def _wrapper():
+				print('Inside _wrapper()')
+				func()
+				print('Decorator arguements:', args, kwargs)
+			return _wrapper
+		return wrapper
+
+@Decorator.operator('haha...', 'hehe...', name='chai')
+def test():
+	print('Inside test()')
+
+test()
+
+
+# 使用类的对象作为装饰器
+class Decorator(object):
+	def __init__(self):
+		pass
+
+	def __call__(self):
+		pass
+
+d = Decorator()
+
+@d
+def test():
+	print('Inside test()')
+
+test()
