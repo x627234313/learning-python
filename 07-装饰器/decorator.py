@@ -5,32 +5,32 @@
 # 使用多个装饰器
 def decorator1(func):
 	print('A')
-	def wrapper():
-		pass
-	print('B')
-	return wrapper
+	def wrapper1():
+		print('B')
+		func()
+	return wrapper1
 
 def decorator2(func):
 	print('C')
-	def wrapper():
-		pass
-	print('D')
-	return wrapper
+	def wrapper2():
+		print('D')
+		func()
+	return wrapper2
 
 def decorator3(func):
 	print('E')
-	def wrapper():
-		pass
-	print('F')
-	return wrapper
+	def wrapper3():
+		print('F')
+		func()
+	return wrapper3
 
 @decorator1
 @decorator2
 @decorator3
 def decorated():
-	return '1024'
+	print('001')
 
-d = decorated()    # E F C D A B
+decorated()
 
 
 # 把装饰器定义为类
@@ -122,14 +122,84 @@ test()
 # 使用类的对象作为装饰器
 class Decorator(object):
 	def __init__(self):
-		pass
+		print('Inside __init__()')
 
-	def __call__(self):
-		pass
+	def __call__(self, func):
+		print('Inside __call__()')
+		def wrapper():
+			print('Inside wrapper()')
+			func()
+		return wrapper
 
 d = Decorator()
 
 @d
+def test():
+	print('Inside test()')
+
+test()
+
+
+# 使用带参数的类的对象作为装饰器
+class Decorator(object):
+	def __init__(self):
+		pass
+
+	def __call__(self, name):
+		def wrapper(func):
+			def _wrapper():
+				print('Decorator arguements:', name)
+				print('Inside _wrapper()')
+				func()
+			return _wrapper
+		return wrapper
+
+d = Decorator()
+@d('chai')
+def test():
+	print('Inside test()')
+
+test()
+
+
+# 使用实例方法作为装饰器
+class Decorator(object):
+	def __init__(self):
+		pass
+
+	def operator(self, func):
+		print('Inside operator()')
+		def wrapper():
+			print('Inside wrapper()')
+			func()
+		return wrapper
+
+d = Decorator()
+@d.operator
+def test():
+	print('Inside test()')
+
+test()
+
+
+# 使用带参数的实例方法作为装饰器
+class Decorator(object):
+	def __init__(self):
+		pass
+
+	def operator(self, name):
+		print('Inside operator()')
+		def wrapper(func):
+			print('Inside wrapper()')
+			def _wrapper():
+				print('Inside _wrapper()')
+				func()
+				print('Decorator arguements:', name)
+			return _wrapper
+		return wrapper
+
+d = Decorator()
+@d.operator('chai')
 def test():
 	print('Inside test()')
 
