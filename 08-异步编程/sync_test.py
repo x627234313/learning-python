@@ -8,7 +8,7 @@ import time
 # 同步阻塞方式
 def blocking_way():
     sock = socket.socket()
-    sock.connect(('localhost', 8080))
+    sock.connect(('spzl.miit.gov.cn', 80))
     request = 'GET / HTTP/1.0\r\nHost: localhost\r\n\r\n'
     sock.send(request.encode('ascii'))
     response = b''
@@ -28,7 +28,7 @@ def sync_way():
     print(end - start)
     return len(res)
 
-result = sync_way()    # 0.063
+result = sync_way()    # 执行时间约1.38s
 
 
 # 多进程方式
@@ -38,7 +38,7 @@ from concurrent import futures
 def blocking_way1():
     sock = socket.socket()
     # blcoking
-    sock.connect(('localhost', 8080))
+    sock.connect(('spzl.miit.gov.cn', 80))
     request = 'GET / HTTP/1.0\r\nHost: localhost\r\n\r\n'
     sock.send(request.encode('ascii'))
     response = b''
@@ -59,13 +59,13 @@ def process_way():
     print(end - start)
     return len([fut.result() for fut in futs])
 
-result = process_way()    # 0.066
+result = process_way()    # 执行时间约0.33s
 
 
 # 多线程方式
 def blocking_way2():
     sock = socket.socket()
-    sock.connect(('localhost', 8080))
+    sock.connect(('spzl.miit.gov.cn', 80))
     request = 'GET / HTTP/1.0\r\nHost: localhost\r\n\r\n'
     sock.send(request.encode('ascii'))
     response = b''
@@ -85,4 +85,4 @@ def thread_way():
     print(end - start)
     return len([fut.result() for fut in futs])
 
-result = thread_way()
+result = thread_way()    # 执行时间约0.27s
