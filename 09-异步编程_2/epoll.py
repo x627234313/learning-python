@@ -7,6 +7,7 @@ from selectors import SelectSelector, EVENT_WRITE, EVENT_READ
 
 selector = SelectSelector()
 STOP = False
+file_list = ['1.txt', '2.txt', '3.txt', '4.txt']
 
 class BackUp(object):
     def __init__(self, filename):
@@ -42,11 +43,12 @@ class BackUp(object):
 
     def file_read(self, key, mask):
         global STOP
-        chunk = self.fd.read(1024)
+        chunk = self.fd.read()
         if chunk:
             self.content += chunk
         else:
             selector.unregister(key.fd)
+            self.fd.close()
             STOP = True
 
 
@@ -61,8 +63,11 @@ def loop():
 if __name__ == '__main__':
     import time
     start = time.time()
-    backup = BackUp('/tmp/1.txt')
-    backup.file_open()
+    for filename in file_list:
+        backup=BackUp('/tmp/' + filename)
+        backup.file_open()
+    #backup = BackUp('/tmp/2.txt')
+    #backup.file_open()
     loop()
     end = time.time()
     print(end - start)
