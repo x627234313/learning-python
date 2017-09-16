@@ -3,9 +3,9 @@
 
 import fcntl
 import os
-from selectors import DefaultSelector, EVENT_WRITE, EVENT_READ
+from selectors import SelectSelector, EVENT_WRITE, EVENT_READ
 
-selector = DefaultSelector()
+selector = SelectSelector()
 STOP = False
 
 class BackUp(object):
@@ -15,14 +15,29 @@ class BackUp(object):
         self.content = b''
 
     def file_open(self):
-        with open(self.filename, 'rb') as f:
-            self.fd = f.fileno()
-            flag = fcntl.fcntl(self.fd, fcntl.F_GETFL)
-            fcntl.fcntl(self.fd, fcntl.F_SETFL, flag | os.O_NONBLOCK)
-            flag = fcntl.fcntl(self.fd, fcntl.F_GETFL)
-            if flag & os.O_NONBLOCK:
-                print('O_NONBLOCK!')
-            selector.register(self.fd, EVENT_READ, self.file_read)
+        #self.fd = os.open(self.filename, os.O_RDWR)
+        #fo = os.fdopen(self.fd,'rb')
+        #selector.register(fo, EVENT_READ, self.file_read)
+
+        self.fd = open(self.filename, 'rb')
+        flag = fcntl.fcntl(self.fd, fcntl.F_GETFL)
+        print(flag)
+        fcntl.fcntl(self.fd, fcntl.F_SETFL, flag | os.O_NONBLOCK)
+        flag = fcntl.fcntl(self.fd, fcntl.F_GETFL)
+        print(flag)
+        if flag & os.O_NONBLOCK:
+            print('O_NONBLOCK!')
+        selector.register(self.fd.fileno(), EVENT_READ, self.file_read)
+
+        #with open(self.filename, 'rb') as f:
+        #    self.fd = f.fileno()
+        #    flag = fcntl.fcntl(self.fd, fcntl.F_GETFL)
+        #    fcntl.fcntl(self.fd, fcntl.F_SETFL, flag | os.O_NONBLOCK)
+        #    flag = fcntl.fcntl(self.fd, fcntl.F_GETFL)
+        #    if flag & os.O_NONBLOCK:
+        #        print('O_NONBLOCK!')
+        #    selector.register(self.fd, EVENT_READ, self.file_read)
+
         #selector.register(self.fd, EVENT_READ, self.file_read)
 
     def file_read(self, key, mask):
