@@ -22,10 +22,8 @@ class BackUp(object):
 
         self.fd = open(self.filename, 'rb')
         flag = fcntl.fcntl(self.fd, fcntl.F_GETFL)
-        print(flag)
         fcntl.fcntl(self.fd, fcntl.F_SETFL, flag | os.O_NONBLOCK)
         flag = fcntl.fcntl(self.fd, fcntl.F_GETFL)
-        print(flag)
         if flag & os.O_NONBLOCK:
             print('O_NONBLOCK!')
         selector.register(self.fd.fileno(), EVENT_READ, self.file_read)
