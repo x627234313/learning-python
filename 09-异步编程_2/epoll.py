@@ -6,39 +6,48 @@ import os
 from selectors import DefaultSelector, EVENT_WRITE, EVENT_READ
 
 selector = DefaultSelector()
-
+STOP = False
 
 class BackUp(object):
     def __init__(self, filename):
         self.filename = filename
-        self.content = None
-        self.file_write = None
+        self.fd = None
+        self.content = b''
 
-    def file_read(self):
-        with open(self.file, 'rb') as f:
-            fd = f.fileno()
-            fcntl.fcntl(fd, fcntl.F_SETFL, flag | os.O_NONBLOCK)
-            self.content = fd.read(4096)
-        selector.register(fd, EVENT_READ, self.file_write)
+    def file_open(self):
+        with open(self.filename, 'rb') as f:
+            self.fd = f.fileno()
+            flag = fcntl.fcntl(self.fd, fcntl.F_GETFL)
+            fcntl.fcntl(self.fd, fcntl.F_SETFL, flag | os.O_NONBLOCK)
+            flag = fcntl.fcntl(self.fd, fcntl.F_GETFL)
+            if flag & os.O_NONBLOCK:
+                print('O_NONBLOCK!')
+            selector.register(self.fd, EVENT_READ, self.file_read)
+        #selector.register(self.fd, EVENT_READ, self.file_read)
 
-    def file_write(self, key, mask):
-        selector.unregister(key.id)
-        with open(self.file, 'wb') as f:
-            f.write(self.content)
+    def file_read(self, key, mask):
+        global STOP
+        chunk = self.fd.read(1024)
+        if chunk:
+            self.content += chunk
+        else:
+            selector.unregister(key.fd)
+            STOP = True
 
 
 def loop():
-    events = selector.select()
-    for enent_key, event_mask in events:
-        callback = event_key.data
-        callback(event_key, event_mask)
+    while not STOP:
+        events = selector.select()
+        for event_key, event_mask in events:
+            callback = event_key.data
+            callback(event_key, event_mask)
 
 
 if __name__ == '__main__':
     import time
     start = time.time()
-    backup = BackUp()
-    backup.file_read()
+    backup = BackUp('/tmp/1.txt')
+    backup.file_open()
     loop()
     end = time.time()
     print(end - start)
