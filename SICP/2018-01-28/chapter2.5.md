@@ -136,7 +136,23 @@ True
 <bound method Test.c of <class '__main__.Test'>>
 ```
 
+**调用类中方法有两种方式**：  
+- 作为函数调用，传参时要请注意，第一个参数是类的实例
+```python
+>>> Account.deposit(tom_account, 1001) # The deposit function requires 2 arguments
+1011
+```
+- 作为方法调用，对象通过点号调用方法
+```python
+>>> tom_account.deposit(1000) # The deposit method takes 1 argument
+2011
+```
 
+**实践指南：命名风格**  
+[PYTHON编码规范.pdf]()
+
+## 2.5.4 类属性
+定义在类的里面，方法的外面
 
 
 
