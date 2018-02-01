@@ -74,11 +74,67 @@ True
 
 当一个方法通过点号被调用，**这个对象本身扮演了双重角色**。首先，确定`withdraw`是什么；其次，当`withdraw`方法被调用时它绑定到第一个参数`self`上。
 
-## 2.5.3 消息分发和点表达式
+## 2.5.3 消息传递和点表达式
+**定义在类中的方法，和通常在构造器中的实例属性，是面向对象编程的基本元素。这两个概念复制了消息传递中调度字典实现数据值的大部分行为**。对象使用点号来获取消息，但是这些消息不是任意的字符串值，而是一个类的局部名称。对象也有命名局部状态值（实例属性），但该状态可以访问并使用点号进行操作，而不必在实现中使用`nonlocal`语句。
 
+**消息传递中的中心思想是, 数据值应该具有响应与它们所表示的抽象类型相关的消息的行为**。点号是Python的一个语法特征，它将形式化消息传递隐喻。使用具有内置对象系统的语言的优点是消息传递可以与其他语言功能（例如赋值语句）无缝地交互。我们不需要不同的消息来“get”或“set”与局部属性名称相关联的值;语言语法允许我们直接使用消息名称。
 
+**点表达式**。
+```
+<expression> . <name>
+```
+这`expression`可以是任何有效的Python表达式，但是这`name`必须是一个简单的名称(不是计算名称的表达式)。
 
+Python中有两个内置函数：
+- `getattr`：也可以通过名称返回对象属性
+- `hasattr`：测试对象是否有一个命名的属性
+```python
+>>> getattr(tom_account, 'balance')
+10
+>>> hasattr(tom_account, 'deposit')
+True
+```
+对象的属性包括其所有实例属性，以及其类中定义的所有属性（包括方法）。方法是需要特殊处理的类的属性。
 
+**方法和函数**，当对象调用方法时，这个对象就绑定到方法的第一个参数`self`上。
+
+我们可以在点表达式的返回值上使用`type`函数来看到不同。**作为类的属性，仅仅是一个函数；但是作为实例的属性，它是方法**。
+```python
+>>> type(Account.deposit)
+<class 'function'>
+>>> type(tom_account.deposit)
+<class 'method'>
+```
+
+> - 实例方法：被类的实例所拥有
+> - `@staticmethod`：可以被所有实例调用，也能被类调用，其内的计算过程和实例无关。只是作为普通函数
+> - `@classmethod`：被所有的实例共用。它的状态和类相关，和实例无关
+```python
+>>> class Test():
+...   def a(self):
+...     pass
+...
+...   @staticmethod
+...   def b(self):
+...     pass
+...
+...   @classmethod
+...   def c(cls):
+...     pass
+...
+>>> Test.a
+<function Test.a at 0x000002ACDDF6FA60>
+>>> Test().a
+<bound method Test.a of <__main__.Test object at 0x000002ACDDF756D8>>
+>>> Test.b
+<function Test.b at 0x000002ACDDF6FAE8>
+>>> Test().b
+<function Test.b at 0x000002ACDDF6FAE8>
+>>> Test.c
+<bound method Test.c of <class '__main__.Test'>>
+>>> Test().c
+<bound method Test.c of <class '__main__.Test'>>
+```
 
 
 
