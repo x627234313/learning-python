@@ -1,4 +1,4 @@
-# 
+## 
 - Hask table：散列表（哈希映射）是一种实现关联数组抽象数据类型的数据结构，这种结构可以将键映射到值。哈希表使用哈希函数来计算索引到一个桶或槽的阵列中，从中可以找到所需的值。
 
 ![](http://i64.tinypic.com/35n0vbq.jpg)
@@ -33,3 +33,12 @@
   - 没有任何属性完全函数依赖于非候选键的任意一组属性
 
 ![](http://i68.tinypic.com/2qlejcw.jpg)
+
+## Python 中map()、reduce()函数
+- map(function, iterable, ...)
+  - Python中的内置函数。
+  - 将function应用到可迭代对象的每一项，返回一个迭代器。如果传递了额外的iterable参数，则function必须接收许多参数，并且并行的应用到迭代对象的每一项上。
+- functools.reduce(function, iterable[, initializer])
+  - 将两个参数的function累积的应用到序列的成员，从左到右，以便将序列减少到单个值。
+  - 如果存在可选的initializer，则在计算中将其置于序列成员之前，并在序列为空时用作默认值。
+
