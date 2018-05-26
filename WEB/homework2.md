@@ -1,5 +1,73 @@
 # HTTP（HyperText Transfer Protocol）
-超文本转移协议：
+HTTP：超文本转移协议。
+
+它是基于TCP/IP的应用层协议，默认使用80端口，HTTPS是443端口。使用C/S架构，Client端由浏览器(Browser)实现,又称B/S架构，Server端提供超文本(已发展为超媒体)服务。只能由Client主动发起请求，Server端再返回响应。
+
+## HTTP/1.0
+1991年发布的HTTP/0.9版本功能非常简单，只有一个GET方法，服务器也只能返回HTML格式的字符串。
+
+1996年HTTP/1.0发布，增加了很多功能。可以传输任何格式的内容；增加了POST、HEAD方法；请求和响应内容必须包含头信息；状态码(status code)；内容编码(content encoding)等。
+1. 请求格式  
+   ```
+   GET / HTTP/1.0
+   User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5)
+   Accept: */*
+   CRLF
+   ```
+   第一行是请求行，以CRLF结尾；下面是多行头信息，以CRLF结尾；下面是一个空行；最后是请求数据(也可为空)。
+2. Content-Type字段  
+   HTTP/1.0规定，头信息必须是ASCII码，后面的数据可以是任何格式。因此服务器必须告诉客户端响应的内容是什么类型，就是Content-Type的作用。
+   
+   常见的Content-Type的值：
+   `text/html、text/plain、text/css、image/png、image/jpeg、audio/mp4、video/mp4、application/pdf、application/zip`
+   这些类型总称为`MIME Type`。
+   
+   客户端请求也可以使用`Accpet`字段声明自己可以接收哪些数据类型。
+   `Accpet: */*` 可以接收任何类型的数据。
+3. Content-Encoding字段  
+   由于可以发送任何类型的数据，因此可以把数据压缩后再发送，Content-Encoding字段说明压缩的方法。
+   ```
+   Content-Encoding: gzip
+   Content-Encoding: compress
+   ```
+   客户端使用Accept-Encoding字段说明可以接受哪些压缩方法：
+   ```
+   Accept-Encoding: gzip, deflate
+   ```
+4. 缺点  
+   HTTP/1.0主要缺点是每个TCP连接只能发送一次请求和响应，数据发送完成就关闭连接。因此每次请求都要重新建立TCP连接，增加了开销，导致HTTP/1.0性能较差。
+
+## HTTP/1.1
+1997年1月，HTTP/1.1发布，只比HTTP/1.0晚了半年。
+
+1. 持久连接  
+   为了解决每次请求都要建立TCP连接的问题，HTTP/1.1和一部分HTTP/1.0想出了持久连接(HTTP Persistent Connections,也称HTTP keep-alive或HTTP            Connection Reuse)的方法。即只要任意一端没有明确提出断开连接，则保持TCP连接状态。
+
+2. 管线化(pipelining)  
+   HTTP/1.1还引入的管线化机制。即在一个TCP连接中，客户端可以同时发送多个请求。虽然可以同时发送多个请求，但是服务器也要按照请求顺序依次发送响应。
+   
+3. 分块传输编码(Chunked transfer encoding)  
+   通常，HTTP应答消息中发送的数据是整个发送的，Content-Length消息头字段表示数据的长度。数据的长度很重要，因为客户端需要知道哪里是应答消息的结束，以   及后续应答消息的开始。
+   
+   然而，使用分块传输编码，数据分解成一系列数据块，并以一个或多个块发送，这样服务器可以发送数据而不需要预先知道发送内容的总大小。通常数据块的大小是一    致的，但也不总是这种情况。
+   
+   如果一个HTTP消息（请求消息或应答消息）的Transfer-Encoding消息头的值为chunked，那么，消息体由数量未定的块组成，并以最后一个大小为0的块为结束。
+   
+4. 缺点  
+   虽然HTTP/1.1版允许复用TCP连接，但是同一个TCP连接里面，所有的数据通信是按次序进行的。服务器只有处理完一个请求，才会进行下一个请求。要是前面的请求处理的特别慢，后面就会有许多请求排队等着。这称为"队头阻塞"（Head-of-line blocking）。
+   
+## HTTP的缺点和瓶颈
+1. 安全性
+   - 基于明文，通信内容可能被窃听。
+   - 不验证通信双方的身份，可能一方是伪装的。
+   - 无法证明报文完整性，内容可能被篡改。
+2. 性能
+   - 一条TCP连接上只能发送一个请求
+   - 队头阻塞
+   - 请求只能由客户端发起，客户端不可接受响应之外的指令
+   - 请求和响应头部未压缩，头部信息越多延迟越大
+   - 发送冗长的头部，来回之间如果头部大部分字段未改变，浪费资源
+   - 可选择任意压缩格式，不强制压缩后发送
 
 ## HTTP/2
 2015年，HTTP/2发布，它不叫HTTP/2.0是因为标准委员会不准备发布子版本。HTTP/2主要解决了HTTP/1.1效率不高的问题。对比HTTP/1.1，它的主要特性有：
